@@ -1,6 +1,6 @@
 import {promises as fs, writeFile} from "fs"
 
-class ProductManager {
+export default class ProductManager {
     constructor(){
         this.patch = "./productos.txt"
         this.products = []
@@ -69,7 +69,7 @@ class ProductManager {
 
 }
 
-const productos = new ProductManager
+//const productos = new ProductManager
 
 // productos.addProduct("titulo1", "description1", 1000, "img1", "code1", 5)
 // productos.addProduct("titulo2", "description2", 2000, "img2", "code2", 10)
@@ -80,15 +80,15 @@ const productos = new ProductManager
 // productos.getProductById(4)
 
 // productos.deleteProductById(2);
-productos.updateProducts({
-title: 'otrotitulo',
-description: 'otradescription3',
-price: 3500,
-imagen: 'otraimg',
-code: 'otrocode',
-stock: 555,
-id: 3
-})
+// productos.updateProducts({
+// title: 'otrotitulo',
+// description: 'otradescription3',
+// price: 3500,
+// imagen: 'otraimg',
+// code: 'otrocode',
+// stock: 555,
+// id: 3
+// })
 
-productos.getProducts()
+// productos.getProducts()
 
