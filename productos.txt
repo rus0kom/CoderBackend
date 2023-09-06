@@ -1,1 +1,0 @@
-[{"id":3,"title":"otrotitulo","description":"otradescription3","price":3500,"imagen":"otraimg","code":"otrocode","stock":555},{"title":"titulo1","description":"description1","price":1000,"imagen":"img1","code":"code1","stock":5,"id":1}]

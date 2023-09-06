@@ -6,13 +6,14 @@
   "main": "fileSystem.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "server": "nodemon src/app.js"
+    "dev": "nodemon src/index.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.18.2"
+    "express": "^4.18.2",
+    "nanoid": "^4.0.2"
   },
   "devDependencies": {
     "nodemon": "^3.0.1"
