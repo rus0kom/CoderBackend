@@ -5,6 +5,7 @@ import { engine } from "express-handlebars";
 import * as path from "path"
 import __dirname from "./utils.js";
 import ProductManager from "./controllers/ProductManager.js";
+import mongoose from "mongoose";
 
 const app = express();
 const PORT = 8080
@@ -33,6 +34,15 @@ app.get("/", async (req, res) => {
 app.use("/products", ProductRouter)
 app.use("/cart", CartRouter)
 
-app.listen(PORT, ()=> {
-    console.log(`Servidor express puerto ${PORT}`);
-});
+mongoose.set('strictQuery', false)
+try {
+    await mongoose.connect('mongodb+srv://coder:coder@backend39755.3tezvvo.mongodb.net/integradora1')
+    app.listen(PORT, ()=> {
+        console.log(`Servidor express puerto ${PORT}`);
+    });
+} catch (error) {
+    console.log('No se pudo conectar con la DB')
+}
+
+
+ 
