@@ -6,12 +6,14 @@ import handlebars from "express-handlebars";
 import * as path from "path"
 import __dirname from "./utils.js";
 import mongoose from "mongoose";
+import cookieParser from "cookie-parser";
 
 const app = express();
 const PORT = 8080
 
-app.use(express.json())
-app.use(express.urlencoded({ extended : true }))
+app.use(express.json());
+app.use(express.urlencoded({ extended : true }));
+app.use(cookieParser());
 
 //Handlebars
 app.engine('handlebars', handlebars.engine());
@@ -21,7 +23,6 @@ app.set('view engine', 'handlebars');
 app.use('/', viewsRouter);
 app.use('api/products', ProductRouter);
 app.use('api/carts', CartRouter);
-
 
 app.get("/", async (req, res) => {
     res.render("index")
