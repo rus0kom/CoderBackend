@@ -8,7 +8,7 @@ const cartsManager = new Carts();
 //Obtener los carritos
 CartRouter.get('/', async (req, res) => {
     try {
-        const carts = await cartsManager.readProduct(); 
+        const carts = await cartsManager.readCarts(); 
         res.send({ status: 'success', payload: carts }); 
     } catch (error) {
         res.status(500).send({ status: 'error', error: error.message });

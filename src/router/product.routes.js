@@ -1,6 +1,6 @@
 import { Router } from "express";
 // import ProductManager from "../controllers/ProductManager.js";
-import Products from '../controllers/ProductManager.js'
+import Products from "../controllers/ProductManager.js";
 
 const ProductRouter = Router();
 const ProductManager = new Products();
@@ -8,7 +8,7 @@ const ProductManager = new Products();
 //Obtener los productos
 ProductRouter.get('/', async (req, res) => {
     try {
-        const products = await ProductManager.readProduct(); 
+        const products = await ProductManager.readProducts();
         res.send({ status: 'success', payload: products }); 
     } catch (error) {
         res.status(500).send({ status: 'error', error: error.message });
@@ -24,7 +24,7 @@ ProductRouter.post('/', async (req, res) => {
     }
 
     try {
-        const result = await ProductManager.writeProduct({
+        const result = await ProductManager.writeProducts();({
             title,
             description,
             price,
