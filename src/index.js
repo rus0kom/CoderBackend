@@ -22,17 +22,14 @@ app.use('/', viewsRouter);
 app.use('api/products', ProductRouter);
 app.use('api/carts', CartRouter);
 
-// app.get("/", async (req, res) => {
-//     let allProducts = await product.getProducts()
-//     res.render("home", { 
-//         title: "Express avanzado | Handlebars",
-//         products : allProducts
-//     })
-// })
 
-app.use('/', viewsRouter)
-app.use("/products", ProductRouter)
-app.use("/cart", CartRouter)
+app.get("/", async (req, res) => {
+    res.render("index")
+})
+
+//Static
+app.use(express.static(path.join(__dirname, 'public')));
+
 
 mongoose.set('strictQuery', false)
 try {
