@@ -1,10 +1,10 @@
 import express from "express";
 import ProductRouter from "./router/product.routes.js";
 import CartRouter from "./router/carts.routes.js";
+import viewsRouter from "./router/views.router.js";
 import { engine } from "express-handlebars";
 import * as path from "path"
 import __dirname from "./utils.js";
-import ProductManager from "./controllers/ProductManager.js";
 import mongoose from "mongoose";
 
 const app = express();
@@ -30,7 +30,7 @@ app.get("/", async (req, res) => {
     })
 })
 
-
+app.use('/', viewsRouter)
 app.use("/products", ProductRouter)
 app.use("/cart", CartRouter)
 
