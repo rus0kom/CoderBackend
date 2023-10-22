@@ -1,7 +1,7 @@
 import cartsModel from "../models/carts.model.js";
 import Products from "../models/products.model.js";
 
-// TODO RELACIONAR CARRITO CON LOS PRODUCTOS
+// RELACIONAR CARRITO CON LOS PRODUCTOS
 
 //DEVUELVE ARRAY VACIO, REVISAR
 

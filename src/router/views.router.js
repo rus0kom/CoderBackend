@@ -6,6 +6,8 @@ import { addCart, getCarts, getCartById, deleteCart, updateCart, getProductsInCa
 
 const viewsRouter = Router();
 
+//HACER LAS VISTAS DE LOGIN
+
 //CARTS
 
 viewsRouter.get('/cart', authRequired, getProductsInCart) //PROBANDO CARRITO POR USUARIO /DEVUELVE ARRAY VACIO
@@ -34,7 +36,7 @@ viewsRouter.put('/products/:id', authRequired, updateProduct);
 
 //REGISTER
 
-viewsRouter.get('/register', register)
+viewsRouter.post('/register', register)
 
 viewsRouter.post('/login', login)
 
