@@ -11,6 +11,11 @@ const cartsSchema = new mongoose.Schema({
         type: Array,
         quantity: Number,
         default: []
+    },
+    user: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'users',
+        require: true
     }
 })
 

@@ -1,17 +1,52 @@
 import cartsModel from "../models/carts.model.js";
+import Products from "../models/products.model.js";
 
-export default class Carts {
-    constructor () {
-        console.log('Trabajando carritos desde DB')
-    }
+// TODO RELACIONAR CARRITO CON LOS PRODUCTOS
 
-    readCarts = async () => {
-        const carts = await cartsModel.find().lean();
-        return carts;
-    }
+//DEVUELVE ARRAY VACIO, REVISAR
 
-    writeCarts = async (cart) => {
-        const result = await cartsModel.create(cart);
-        return result;
-    }
-}
+export const getProductsInCart = async (req, res) => {
+    const products = await Products.find({
+       user: req.user.id
+    }).lean().populate('users')
+    res.json(products)
+    console.log(req.user) //DEVUELVE ID PERO NO PRODUCTOS
+};
+
+// export const addProductInCart = async (req, res)  => {
+   
+// }
+
+export const getCarts = async (req, res) => {
+    const carts = await cartsModel.find().lean()
+    res.render('carts', {carts})
+};
+
+export const addCart = async (req, res) => {
+    const { id, products } = req.body
+    const newCart = new cartsModel({
+       id,
+       products,
+    })
+
+    const savedCart = await newCart.save()
+   res.json(savedCart);
+};
+
+export const getCartById = async (req, res) => {
+    const cart = await cartsModel.findById(req.params.id)
+    if (!cart) return res.status(404).json({ message: 'Producto no encontrado'})
+    res.json(cart)
+};
+
+export const deleteCart = async (req, res) => {
+    const cart = await cartsModel.findByIdAndDelete(req.params.id)
+    if (!cart) return res.status(404).json({ message: 'Producto no encontrado'})
+    res.json(cart)
+};
+
+export const updateCart = async (req, res) => {
+    const cart = await cartsModel.findByIdAndUpdate(req.params.id, req.body)
+    if (!cart) res.status(404).json({ message: 'Producto no encontrado'})
+    res.json(cart)
+};

@@ -22,7 +22,7 @@ export const register = async (req, res) => {
             id: userSaved._id,
             username: userSaved.username,
             email: userSaved.email,
-            createdAt: userSaved.createdAt,
+            createdAt: userSaved.createdAt, 
             updateAt: userSaved.updatedAt,
         })
     } catch (error) {
