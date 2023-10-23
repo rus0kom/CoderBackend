@@ -5,10 +5,7 @@ const ProductRouter = Router()
 const product = new ProductManager();
 
 ProductRouter.get("/", async (req, res) =>{
-    const products = await ProductManager.find().lean().exec()
-    console.log(products)
-    res.render('layouts/products', { products })
-    //res.send(await product.getProducts())
+    res.send(await product.getProducts())
 })
 
 ProductRouter.get("/:id", async (req, res) =>{

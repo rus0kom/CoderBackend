@@ -3,15 +3,19 @@ import bcrypt from 'bcryptjs'
 import { createAccesToken } from "../libs/jwt.js";
 
 export const register = async (req, res) => {
-    const { email, password, username } = req.body
+    const { email, password, first_name, last_name, age, cart, role } = req.body
 
     try {
 
         const passwordHash = await bcrypt.hash(password, 10)
 
         const newUser = new userModel({
-            username,
+            first_name,
+            last_name,
             email,
+            age,
+            cart,
+            role,
             password: passwordHash,
         })
 
@@ -20,8 +24,11 @@ export const register = async (req, res) => {
         res.cookie("token", token);
         res.json({
             id: userSaved._id,
-            username: userSaved.username,
+            first_name: userSaved.first_name,
+            last_name: userSaved.last_name,
             email: userSaved.email,
+            age: userSaved.age,
+            cart: userSaved.cart,
             createdAt: userSaved.createdAt, 
             updateAt: userSaved.updatedAt,
         })
@@ -73,8 +80,11 @@ export const profile = async (req,res) => {
 
     return res.json({
         id: userFound._id,
-        username: userFound.username,
+        first_name: userFound.first_name,
+        last_name: userFound.last_name,
         email: userFound.email,
+        age: userFound.age,
+        cart: userFound.cart,
         createdAt: userFound.createdAt,
         updateAt: userFound.updatedAt,
     })

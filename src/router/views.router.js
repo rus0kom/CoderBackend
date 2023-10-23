@@ -42,6 +42,6 @@ viewsRouter.post('/login', login)
 
 viewsRouter.post('/logout', logout)
 
-viewsRouter.get('/profile', authRequired, profile)
+viewsRouter.post('/profile', authRequired, profile)
 
 export default viewsRouter;

@@ -3,14 +3,12 @@ import Products from "../models/products.model.js";
 
 // RELACIONAR CARRITO CON LOS PRODUCTOS
 
-//DEVUELVE ARRAY VACIO, REVISAR
-
 export const getProductsInCart = async (req, res) => {
     const products = await Products.find({
        user: req.user.id
-    }).lean().populate('users')
+    }).lean().populate('user')
     res.json(products)
-    console.log(req.user) //DEVUELVE ID PERO NO PRODUCTOS
+    console.log(req.user) 
 };
 
 // export const addProductInCart = async (req, res)  => {

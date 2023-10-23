@@ -3,8 +3,13 @@ import mongoose from "mongoose";
 const userCollection = 'users';
 
 const userSchema = new mongoose.Schema({
-    username: { 
+    first_name: { 
         type: String, 
+        require: true,
+        trim: true
+    },
+    last_name: {
+        type: String,
         require: true,
         trim: true
     },
@@ -14,9 +19,22 @@ const userSchema = new mongoose.Schema({
         trim: true,
         unique: true
     },
+    age: {
+        type: Number,
+        require: true,
+        trim: true
+    },
     password: { 
         type: String, 
         require: true 
+    },
+    cart: {
+        type: Array,
+        default: []
+    },
+    role: {
+        type: String,
+        default: 'user'
     }
 }, {
     timestamps: true
