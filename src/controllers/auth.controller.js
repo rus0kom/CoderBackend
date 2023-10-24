@@ -3,7 +3,7 @@ import bcrypt from 'bcryptjs'
 import { createAccesToken } from "../libs/jwt.js";
 
 export const register = async (req, res) => {
-    const { email, password, first_name, last_name, age, cart, role } = req.body
+    const { email, password, first_name, last_name, age } = req.body
 
     try {
 
@@ -14,27 +14,30 @@ export const register = async (req, res) => {
             last_name,
             email,
             age,
-            cart,
-            role,
             password: passwordHash,
         })
 
         const userSaved = await newUser.save();
         const token = await createAccesToken({ id: userSaved._id });
         res.cookie("token", token);
-        res.json({
-            id: userSaved._id,
-            first_name: userSaved.first_name,
-            last_name: userSaved.last_name,
-            email: userSaved.email,
-            age: userSaved.age,
-            cart: userSaved.cart,
-            createdAt: userSaved.createdAt, 
-            updateAt: userSaved.updatedAt,
-        })
+        res.redirect('/users/login');
+        // res.json({
+        //     id: userSaved._id,
+        //     first_name: userSaved.first_name,
+        //     last_name: userSaved.last_name,
+        //     email: userSaved.email,
+        //     age: userSaved.age,
+        //     cart: userSaved.cart,
+        //     createdAt: userSaved.createdAt, 
+        //     updateAt: userSaved.updatedAt,
+        // })     
     } catch (error) {
         res.status(500).json({ message: error.message });
     };
+};
+
+export const renderRegisterForm = (req, res) => {
+    res.render('users/register');
 };
 
 export const login = async (req, res) => {
@@ -65,6 +68,10 @@ export const login = async (req, res) => {
     };
 
 };
+
+export const renderLoginForm = (req, res) => {
+    res.render('users/login');
+}
 
 export const logout = (req, res) => {
     res.cookie('token', "", {

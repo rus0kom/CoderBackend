@@ -21,8 +21,8 @@ app.set('views', `${__dirname}/views`);
 app.set('view engine', 'handlebars');
 
 app.use('/', viewsRouter);
-app.use('api/products', ProductRouter);
-app.use('api/carts', CartRouter);
+// app.use('api/products', ProductRouter);
+// app.use('api/carts', CartRouter);
 
 app.get("/", async (req, res) => {
     res.render("index")
