@@ -7,10 +7,16 @@ import * as path from "path"
 import __dirname from "./utils.js";
 import mongoose from "mongoose";
 import cookieParser from "cookie-parser";
+import cors from 'cors';
+import morgan from "morgan";
 
 const app = express();
 const PORT = 8080
 
+app.use(cors({
+    origin: 'http://localhost:5173',
+}));
+app.use(morgan("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended : true }));
 app.use(cookieParser());

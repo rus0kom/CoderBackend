@@ -12,14 +12,14 @@ export const registerSchema = z.object({
     }).email({
         message: 'Invalid email'
     }),
+    // age: z.number({
+    //     message: 'Age is required'
+    // }),   /// {"error":["Expected number, received string"]}
     password: z.string({
         required_error: 'Password is required'
     }).min(6, {
         message: 'Password must be at least 6 characters'
     }),
-    age: z.number({
-        required_error: 'Age is required'
-    })
 });
 
 export const loginSchema = z.object({

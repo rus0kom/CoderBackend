@@ -39,9 +39,9 @@ viewsRouter.put('/products/:id', authRequired, updateProduct);
 
 //REGISTER
 
-viewsRouter.post('/register', validateSchema(registerSchema), register)
+// viewsRouter.post('/register', validateSchema(registerSchema), register)
 
-viewsRouter.post('/login', validateSchema(loginSchema), login)
+// viewsRouter.post('/login', validateSchema(loginSchema), login)
 
 viewsRouter.post('/logout', logout)
 
@@ -50,9 +50,9 @@ viewsRouter.post('/profile', authRequired, profile)
 
 
 
-viewsRouter.get('/users/register', renderRegisterForm);
+viewsRouter.get('/users/register', renderRegisterForm, register);
 
-viewsRouter.post('/users/register', register);
+viewsRouter.post('/users/register', validateSchema(registerSchema), register);
 
 viewsRouter.get('/users/login', renderLoginForm);
 

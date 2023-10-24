@@ -3,11 +3,11 @@ import bcrypt from 'bcryptjs'
 import { createAccesToken } from "../libs/jwt.js";
 
 export const register = async (req, res) => {
-    const { email, password, first_name, last_name, age } = req.body
+    const { first_name, last_name, email, age, password } = req.body;
 
     try {
 
-        const passwordHash = await bcrypt.hash(password, 10)
+        const passwordHash = await bcrypt.hash(password, 10);
 
         const newUser = new userModel({
             first_name,
@@ -19,18 +19,18 @@ export const register = async (req, res) => {
 
         const userSaved = await newUser.save();
         const token = await createAccesToken({ id: userSaved._id });
+
         res.cookie("token", token);
-        res.redirect('/users/login');
-        // res.json({
-        //     id: userSaved._id,
-        //     first_name: userSaved.first_name,
-        //     last_name: userSaved.last_name,
-        //     email: userSaved.email,
-        //     age: userSaved.age,
-        //     cart: userSaved.cart,
-        //     createdAt: userSaved.createdAt, 
-        //     updateAt: userSaved.updatedAt,
-        // })     
+        res.json({
+            id: userSaved._id,
+            first_name: userSaved.first_name,
+            last_name: userSaved.last_name,
+            email: userSaved.email,
+            age: userSaved.age,
+            cart: userSaved.cart,
+            createdAt: userSaved.createdAt, 
+            updateAt: userSaved.updatedAt,
+        })     
     } catch (error) {
         res.status(500).json({ message: error.message });
     };
