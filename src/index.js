@@ -9,6 +9,10 @@ import mongoose from "mongoose";
 import cookieParser from "cookie-parser";
 import cors from 'cors';
 import morgan from "morgan";
+import flash from 'connect-flash';
+import session from "express-session";
+import methodOverride from "method-override";
+
 
 const app = express();
 const PORT = 8080
@@ -20,6 +24,13 @@ app.use(morgan("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended : true }));
 app.use(cookieParser());
+app.use(methodOverride('_method'));
+app.use(session({
+    secret: 'secret',
+    resave: true,
+    saveUninitialized: true
+}));
+app.use(flash());
 
 //Handlebars
 app.engine('handlebars', handlebars.engine());

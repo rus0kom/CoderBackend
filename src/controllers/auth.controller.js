@@ -21,16 +21,17 @@ export const register = async (req, res) => {
         const token = await createAccesToken({ id: userSaved._id });
 
         res.cookie("token", token);
-        res.json({
-            id: userSaved._id,
-            first_name: userSaved.first_name,
-            last_name: userSaved.last_name,
-            email: userSaved.email,
-            age: userSaved.age,
-            cart: userSaved.cart,
-            createdAt: userSaved.createdAt, 
-            updateAt: userSaved.updatedAt,
-        })     
+        // res.json({
+        //     id: userSaved._id,
+        //     first_name: userSaved.first_name,
+        //     last_name: userSaved.last_name,
+        //     email: userSaved.email,
+        //     age: userSaved.age,
+        //     cart: userSaved.cart,
+        //     createdAt: userSaved.createdAt, 
+        //     updateAt: userSaved.updatedAt,
+        // })   
+        res.redirect('/users/login');  
     } catch (error) {
         res.status(500).json({ message: error.message });
     };
@@ -56,13 +57,14 @@ export const login = async (req, res) => {
         const token = await createAccesToken({ id: userFound._id });
         
         res.cookie("token", token);
-        res.json({
-            id: userFound._id,
-            username: userFound.username,
-            email: userFound.email,
-            createdAt: userFound.createdAt,
-            updateAt: userFound.updatedAt,
-        });
+        // res.json({
+        //     id: userFound._id,
+        //     username: userFound.username,
+        //     email: userFound.email,
+        //     createdAt: userFound.createdAt,
+        //     updateAt: userFound.updatedAt,
+        // });
+        res.redirect('/');
     } catch (error) {
         res.status(500).json({ message: error.message });
     };
@@ -96,3 +98,8 @@ export const profile = async (req,res) => {
         updateAt: userFound.updatedAt,
     })
 }
+
+export const profileRender = async (req, res) => {
+    res.render("users/profile");
+}
+

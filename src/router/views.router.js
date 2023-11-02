@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import { login, register, renderRegisterForm, renderLoginForm, logout, profile } from '../controllers/auth.controller.js';
 import { authRequired } from '../middlewares/validateToken.js';
-import { addProduct, getProducts, getProductById, deleteProduct, updateProduct } from "../controllers/product.controller.js"
+import { addProduct, getProducts, getProductById, deleteProduct, updateProduct, renderProductForm, renderEditForm } from "../controllers/product.controller.js"
 import { addCart, getCarts, getCartById, deleteCart, updateCart, getProductsInCart } from '../controllers/cart.controller.js';
 import { validateSchema } from '../middlewares/validator.middleware.js';
 import { registerSchema, loginSchema } from '../schemas/auth.schema.js';
@@ -12,8 +12,6 @@ const viewsRouter = Router();
 //HACER LAS VISTAS DE LOGIN
 
 //CARTS
-
-viewsRouter.get('/cart', authRequired, getProductsInCart) //PROBANDO CARRITO POR USUARIO /DEVUELVE ARRAY VACIO
 
 viewsRouter.get('/carts', authRequired, getCarts)
 
@@ -27,28 +25,27 @@ viewsRouter.put('/carts/:id', authRequired, updateCart);
 
 //PRODUCTS
 
-viewsRouter.get('/products', getProducts)
+viewsRouter.get('/products', getProducts);
+
+viewsRouter.get('/products/new-product', authRequired, renderProductForm);
+
+viewsRouter.post('/products/new-product', authRequired, addProduct);
 
 viewsRouter.get('/products/:id', getProductById);
 
 viewsRouter.post('/products', authRequired, addProduct);
 
-viewsRouter.delete('/products/:id', authRequired, deleteProduct);
+viewsRouter.delete('/products/delete/:id', authRequired, deleteProduct);
 
-viewsRouter.put('/products/:id', authRequired, updateProduct);
+viewsRouter.get('/products/edit/:id', authRequired, renderEditForm);
+
+viewsRouter.put('/products/edit/:id', authRequired, updateProduct);
 
 //REGISTER
 
-// viewsRouter.post('/register', validateSchema(registerSchema), register)
-
-// viewsRouter.post('/login', validateSchema(loginSchema), login)
-
 viewsRouter.post('/logout', logout)
 
-viewsRouter.post('/profile', authRequired, profile)
-
-
-
+viewsRouter.get('/users/profile', authRequired, profile)
 
 viewsRouter.get('/users/register', renderRegisterForm, register);
 
@@ -56,7 +53,7 @@ viewsRouter.post('/users/register', validateSchema(registerSchema), register);
 
 viewsRouter.get('/users/login', renderLoginForm);
 
-viewsRouter.post('/users/login', login);
+viewsRouter.post('/users/login', validateSchema(loginSchema), login);
 
 viewsRouter.get('/users/logout', logout)
 
