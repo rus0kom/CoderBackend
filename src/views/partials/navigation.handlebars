@@ -23,14 +23,25 @@
             </div>
         </nav>
         <ul class="navbar-nav ml-auto">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                    aria-expanded="false">
+                    Acciones
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="/products/new-product">Agregar producto</a></li>
+                    <li><a class="dropdown-item" href="/products">Editar producto</a></li>
+                    <li>
+                        <hr class="dropdown-divider">
+                    </li>
+                    <li><a class="dropdown-item" href="/users/logout">Logout</a></li>
+                </ul>
+            </li>
             <li class="nav-item">
                 <a href="/users/login" class="nav-link">Login</a>
             </li>
             <li class="nav-item">
                 <a href="/users/register" class="nav-link">Register</a>
-            </li>
-            <li class="nav-item">
-                <a href="/users/logout" class="nav-link">Log out</a>
             </li>
         </ul>
     </div>

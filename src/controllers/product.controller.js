@@ -21,7 +21,7 @@ export const addProduct = async (req, res) => {
     })
 
     const savedProduct = await newProduct.save()
-    //    res.json(savedProduct);
+    req.flash('success_msg', 'Product added Successfully');
     res.redirect('/products');
 };
 
@@ -34,12 +34,14 @@ export const getProductById = async (req, res) => {
 export const deleteProduct = async (req, res) => {
     const product = await Products.findByIdAndDelete(req.params.id)
     if (!product) return res.status(404).json({ message: 'Producto no encontrado' })
+    req.flash('success_msg', 'Product deleted Successfully');
     res.redirect('/products')
 };
 
 export const updateProduct = async (req, res) => {
     const { title, description, price, thumbnail, code, stock } = req.body;
     await Products.findByIdAndUpdate(req.params.id, { title, description, price, thumbnail, code, stock });
+    req.flash('success_msg', 'Product Updated Successfully');
     res.redirect('/products')
 };
 

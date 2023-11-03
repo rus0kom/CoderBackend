@@ -32,6 +32,13 @@ app.use(session({
 }));
 app.use(flash());
 
+// Global Variables
+
+app.use((req, res, next) => {
+    res.locals.success_msg = req.flash('success_msg');
+    next();
+})
+
 //Handlebars
 app.engine('handlebars', handlebars.engine());
 app.set('views', `${__dirname}/views`);
