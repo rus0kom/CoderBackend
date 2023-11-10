@@ -8,7 +8,7 @@ function RegisterPage() {
         register, 
         handleSubmit, 
         formState: {errors} 
-    } = useForm()
+    } = useForm();
     const { signup, isAuthenticated } = useAuth();
     const navigate = useNavigate();
 
