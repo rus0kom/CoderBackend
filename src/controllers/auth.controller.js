@@ -6,10 +6,9 @@ export const register = async (req, res) => {
     const { first_name, last_name, email, age, password } = req.body;
 
     try {
-
-        const userFound = await user.findOne( {email })
+        const userFound = await userModel.findOne({ email })
         if (userFound) 
-            return res.status(400).json({ message: ['the email is alredy in use'] });
+            return res.status(400).json(['The email is already in use']);
 
         const passwordHash = await bcrypt.hash(password, 10);
 
@@ -25,17 +24,16 @@ export const register = async (req, res) => {
         const token = await createAccesToken({ id: userSaved._id });
 
         res.cookie("token", token);
-        // res.json({
-        //     id: userSaved._id,
-        //     first_name: userSaved.first_name,
-        //     last_name: userSaved.last_name,
-        //     email: userSaved.email,
-        //     age: userSaved.age,
-        //     cart: userSaved.cart,
-        //     createdAt: userSaved.createdAt, 
-        //     updateAt: userSaved.updatedAt,
-        // })   
-        res.redirect('/users/login');  
+        res.json({
+            id: userSaved._id,
+            first_name: userSaved.first_name,
+            last_name: userSaved.last_name,
+            email: userSaved.email,
+            age: userSaved.age,
+            cart: userSaved.cart,
+            createdAt: userSaved.createdAt, 
+            updateAt: userSaved.updatedAt,
+        })    
     } catch (error) {
         res.status(500).json({ message: error.message });
     };
@@ -49,26 +47,23 @@ export const login = async (req, res) => {
     const { email, password } = req.body;
 
     try {
-
-        const userFound = await userModel.findOne({email})
-
+        const userFound = await userModel.findOne({ email });
         if (!userFound) return res.status(400).json({ message: "Usuario no encontrado" });
         
         const isMatch = await bcrypt.compare(password, userFound.password);
-
-        if (!isMatch) return res.status(400).json({ message: "Contraseña incorrecta"});
+        if (!isMatch) 
+            return res.status(400).json({ message: "Contraseña incorrecta"});
 
         const token = await createAccesToken({ id: userFound._id });
         
         res.cookie("token", token);
-        // res.json({
-        //     id: userFound._id,
-        //     username: userFound.username,
-        //     email: userFound.email,
-        //     createdAt: userFound.createdAt,
-        //     updateAt: userFound.updatedAt,
-        // });
-        res.redirect('/');
+        res.json({
+            id: userFound._id,
+            username: userFound.username,
+            email: userFound.email,
+            createdAt: userFound.createdAt,
+            updateAt: userFound.updatedAt,
+        });
     } catch (error) {
         res.status(500).json({ message: error.message });
     };
