@@ -1,7 +1,15 @@
 import { Router } from 'express';
-import { login, register, renderRegisterForm, renderLoginForm, logout, profile } from '../controllers/auth.controller.js';
+import { login, register, renderRegisterForm, renderLoginForm, logout, profile, verifyToken } from '../controllers/auth.controller.js';
 import { authRequired } from '../middlewares/validateToken.js';
-import { addProduct, getProducts, getProductById, deleteProduct, updateProduct, renderProductForm, renderEditForm } from "../controllers/product.controller.js"
+import {
+    addProduct,
+    getProducts,
+    getProductById,
+    deleteProduct,
+    updateProduct,
+    renderProductForm,
+    renderEditForm
+} from "../controllers/product.controller.js"
 import { addCart, getCarts, getCartById, deleteCart, updateCart, getProductsInCart } from '../controllers/cart.controller.js';
 import { validateSchema } from '../middlewares/validator.middleware.js';
 import { registerSchema, loginSchema } from '../schemas/auth.schema.js';
@@ -50,6 +58,8 @@ viewsRouter.get('/users/profile', authRequired, profile)
 viewsRouter.get('/users/register', renderRegisterForm, register);
 
 viewsRouter.post('/users/register', validateSchema(registerSchema), register);
+
+viewsRouter.get("/users/verify", verifyToken);
 
 viewsRouter.get('/users/login', renderLoginForm);
 

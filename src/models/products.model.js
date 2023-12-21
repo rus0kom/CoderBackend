@@ -30,8 +30,12 @@ const productSchema = new mongoose.Schema({
     },
     user: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'users',
+        ref: 'User',
         require: true
+    },
+    date: {
+        type: Date,
+        default: Date.now,
     },
     carts: {
         type: Array,

@@ -1,6 +1,8 @@
 import userModel from "../models/user.model.js";
 import bcrypt from 'bcryptjs'
 import { createAccesToken } from "../libs/jwt.js";
+import jwt from 'jsonwebtoken'
+import { TOKEN_SECRET } from "../config.js";
 
 export const register = async (req, res) => {
     const { first_name, last_name, email, age, password } = req.body;
@@ -59,7 +61,9 @@ export const login = async (req, res) => {
         res.cookie("token", token);
         res.json({
             id: userFound._id,
-            username: userFound.username,
+            first_name: userFound.first_name,
+            last_name: userFound.last_name,
+            age: userFound.age,
             email: userFound.email,
             createdAt: userFound.createdAt,
             updateAt: userFound.updatedAt,
@@ -102,3 +106,25 @@ export const profileRender = async (req, res) => {
     res.render("users/profile");
 }
 
+export const verifyToken = async (req, res) => {
+    const {token} = req.cookies
+
+    if (!token) return res.status(401).json({ message: "Unauthorized" });
+    
+    jwt.verify(token, TOKEN_SECRET, async (err, user) => {
+        if (err) return res.status(401).json({ message: "Unauthorized" });
+
+        const userFound = await userModel.findById(user.id)
+        if (!userFound) return res.status(401).json({ message: "Unauthorized" });
+
+        return res.json({
+            id: userFound._id,
+            first_name: userFound.first_name,
+            last_name: userFound.last_name,
+            age: userFound.age,
+            email: userFound.email,
+            createdAt: userFound.createdAt,
+            updateAt: userFound.updatedAt,
+        });
+    });
+}

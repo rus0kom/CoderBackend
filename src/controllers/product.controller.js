@@ -3,10 +3,11 @@ import Products from "../models/products.model.js"
 export const getProducts = async (req, res) => {
     const products = await Products.find().lean()
     res.render('products/all-products', { products })
+    res.json(products)
 };
 
 export const addProduct = async (req, res) => {
-    const { title, description, price, thumbnail, code, stock } = req.body
+    const { title, description, price, thumbnail, code, stock, date } = req.body
 
     console.log(req.user)
 
@@ -17,12 +18,13 @@ export const addProduct = async (req, res) => {
         thumbnail,
         code,
         stock,
+        date,
         user: req.user.id
     })
 
     const savedProduct = await newProduct.save()
     req.flash('success_msg', 'Product added Successfully');
-    res.redirect('/products');
+    res.json(savedProduct)
 };
 
 export const getProductById = async (req, res) => {
