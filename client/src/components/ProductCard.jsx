@@ -1,4 +1,5 @@
 import { useProducts } from "../context/ProductContext"
+import { Link } from 'react-router-dom'
 
 function ProductCard({ product }) {
 
@@ -11,7 +12,7 @@ function ProductCard({ product }) {
                     <button onClick={() => {
                         deleteProduct(product._id);
                     }}>delete</button>
-                    <button>edit</button>
+                    <Link to={`/products/${product._id}`}>edit</Link>
                 </div>
             </header>
             <p className="text-slate-300">{product.description}</p>

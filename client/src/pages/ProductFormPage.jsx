@@ -1,14 +1,37 @@
 import { useForm } from "react-hook-form"
 import { useProducts } from "../context/ProductContext";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import { useEffect } from "react";
 
 function ProductFormPage() {
-  const { register, handleSubmit } = useForm();
-  const { createProduct } = useProducts();
+  const { register, handleSubmit, setValue } = useForm();
+  const { createProduct, getProduct, updateProduct } = useProducts();
   const navigate = useNavigate();
+  const params = useParams()
+
+  useEffect(() => {
+    async function loadProduct() {
+      if (params.id) {
+        const product = await getProduct(params.id);
+        console.log(product)
+        setValue('title', product.title)
+        setValue('description', product.description)
+        setValue('price', product.price)
+        setValue('thumbnail', product.thumbnail)
+        setValue('code', product.code)
+        setValue('stock', product.stock)
+      }
+    }
+    loadProduct()
+  }, []);
 
   const onSubmit = handleSubmit((data) => {
-    createProduct(data);
+    if (params.id) {
+      updateProduct(params.id, data);
+    } else {
+      createProduct(data);
+    }
+
     navigate('/products')
   });
 
