@@ -45,33 +45,3 @@ export const updateCart = async (req, res) => {
     res.json(cart)
 };
 
-// TERMINAR ESTO
-
-// export const addProductInCart = async (req, res) => {
-//     let cartById = await cartsModel.find({
-//         id: req.user.id
-//     })
-//     if(!cartById) return "Carrito no encontrado";
-//     let productById = await Products.find({
-//         id: req.user.id
-//     });
-//     if(!cartById) return "Producto no encontrado";
-
-//     let cartsAll = await getCarts()
-//     let cartFilter = cartsAll.filter((cart) => cart.id != cartId);
-
-//     if (cartById.products.some((prod) => prod.id === productId)){
-//         let moreProductInCart = cartById.products.find(
-//         (prod) => prod.id === productId
-//         );
-//         moreProductInCart.cantidad++;
-//         console.log(moreProductInCart.cantidad);
-//         let cartsConcat = [cartById, ...cartFilter];
-//         await this.writeCarts(cartsConcat)
-//         return "Producto sumado al carrito"
-//     }
-//     cartById.products.push({ id: productById.id, cantidad:1 })
-//     let cartsConcat = [cartById, ...cartFilter];
-//     await this.writeCarts(cartsConcat)
-//     return "Producto agregado al carrito"
-// };

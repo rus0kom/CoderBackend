@@ -22,69 +22,73 @@ function RegisterPage() {
     });
 
     return (
-        <div className="bg-zinc-800 max-w-md p-10 rounded-md">
-            {
-                registerErrors.map((error, i) => (
-                    <div className="bg-red-500 p-2 text-white text-center my-2" key={i}>
-                        {error}
-                    </div>
-                ))
-            }
+        <div className="flex h-[calc(100vh-100px)] items-center justify-center">
+            <div className="bg-zinc-800 max-w-md p-10 rounded-md">
+                {
+                    registerErrors.map((error, i) => (
+                        <div className="bg-red-500 p-2 text-white text-center my-2" key={i}>
+                            {error}
+                        </div>
+                    ))
+                }
 
-            <h1 className="text-2xl font-bold">Register</h1>
-            
-            <form onSubmit={onSubmit}>
+                <h1 className="text-2xl font-bold">Register</h1>
 
-                <input type="text" {...register("first_name", { required: true })}
-                    className="w-full bg-zinc-700 text-white px-4 py-2 rounded-md my-2"
-                    placeholder="First Name"
-                />
-                {errors.first_name && (<p className='text-red-500'>First name is required</p>
-                )}
-                <input type="text"
-                    {...register("last_name", { required: true })}
-                    className="w-full bg-zinc-700 text-white px-4 py-2 rounded-md my-2"
-                    placeholder="Last Name"
-                />
-                {errors.last_name && (<p className='text-red-500'>Last name is required</p>
-                )}
-                <input type="email"
-                    {...register("email", { required: true })}
-                    className="w-full bg-zinc-700 text-white px-4 py-2 rounded-md my-2"
-                    placeholder="Email"
-                />
-                {errors.email && (<p className='text-red-500'>Email is required</p>
-                )}
-                <input type="number"
-                    {...register("age", { required: true })}
-                    className="w-full bg-zinc-700 text-white px-4 py-2 rounded-md my-2"
-                    placeholder="Age"
-                />
-                {errors.age && (<p className='text-red-500'>Age is required</p>
-                )}
-                <input type="password"
-                    {...register("password", { required: true })}
-                    className="w-full bg-zinc-700 text-white px-4 py-2 rounded-md my-2"
-                    placeholder="Password"
-                />
-                {errors.password && (<p className='text-red-500'>Password is required</p>
-                )}
-                <input type="password"
-                    {...register("confirm password", { required: true })}
-                    className="w-full bg-zinc-700 text-white px-4 py-2 rounded-md my-2"
-                    placeholder="Confirm Password"
-                />
-                {errors.password && (<p className='text-red-500'>Password is required</p>
-                )}
-                <button type="submit">Register</button>
+                <form onSubmit={onSubmit}>
 
-            </form>
+                    <input type="text" {...register("first_name", { required: true })}
+                        className="w-full bg-zinc-700 text-white px-4 py-2 rounded-md my-2"
+                        placeholder="First Name"
+                    />
+                    {errors.first_name && (<p className='text-red-500'>First name is required</p>
+                    )}
+                    <input type="text"
+                        {...register("last_name", { required: true })}
+                        className="w-full bg-zinc-700 text-white px-4 py-2 rounded-md my-2"
+                        placeholder="Last Name"
+                    />
+                    {errors.last_name && (<p className='text-red-500'>Last name is required</p>
+                    )}
+                    <input type="email"
+                        {...register("email", { required: true })}
+                        className="w-full bg-zinc-700 text-white px-4 py-2 rounded-md my-2"
+                        placeholder="Email"
+                    />
+                    {errors.email && (<p className='text-red-500'>Email is required</p>
+                    )}
+                    <input type="number"
+                        {...register("age", { required: true })}
+                        className="w-full bg-zinc-700 text-white px-4 py-2 rounded-md my-2"
+                        placeholder="Age"
+                    />
+                    {errors.age && (<p className='text-red-500'>Age is required</p>
+                    )}
+                    <input type="password"
+                        {...register("password", { required: true })}
+                        className="w-full bg-zinc-700 text-white px-4 py-2 rounded-md my-2"
+                        placeholder="Password"
+                    />
+                    {errors.password && (<p className='text-red-500'>Password is required</p>
+                    )}
+                    <input type="password"
+                        {...register("confirm password", { required: true })}
+                        className="w-full bg-zinc-700 text-white px-4 py-2 rounded-md my-2"
+                        placeholder="Confirm Password"
+                    />
+                    {errors.password && (<p className='text-red-500'>Password is required</p>
+                    )}
+                    <button type="submit"
+                        className="bg-sky-500 text-white px-4 py-2 rounded-md my-2"
+                    >Register</button>
 
-            <p className="flex gap-2 justify-between">
-                Already have an account? <Link to="/login"
-                    className="text-sky-500">Login</Link>
-            </p>
+                </form>
 
+                <p className="flex gap-2 justify-between">
+                    Already have an account? <Link to="/login"
+                        className="text-sky-500">Login</Link>
+                </p>
+
+            </div>
         </div>
     )
 }

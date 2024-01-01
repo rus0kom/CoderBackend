@@ -3,7 +3,7 @@ import Products from "../models/products.model.js"
 export const getProducts = async (req, res) => {
     try {
         const products = await Products.find({
-            //  user: req.user.id
+            //  user: req.user.id,
         }).populate("user");
         res.json(products);
     } catch (error) {
@@ -23,11 +23,10 @@ export const addProduct = async (req, res) => {
             code,
             stock,
             date,
-            user: req.user.id
+            user: req.user.id,
         })
 
         const savedProduct = await newProduct.save()
-        // req.flash('success_msg', 'Product added Successfully');
         res.json(savedProduct)
     } catch (error) {
         return res.status(500).json({ message: "Algo salio mal" });
