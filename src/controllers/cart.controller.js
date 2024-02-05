@@ -1,48 +1,170 @@
-import cartsModel from "../models/carts.model.js";
-import Products from "../models/products.model.js";
+import CartService from "../services/cart.service.js";
+import ProductService from "../services/product.service.js";
+import { logger } from "../utils/index.js";
 
-export const getProductsInCart = async (req, res) => {
-    const products = await Products.find({
-       user: req.user.id
-    }).lean().populate('user')
-    res.json(products)
-    console.log(req.user) 
-};
+class CartController {
+  constructor() {}
 
-export const getCarts = async (req, res) => {
-    const carts = await cartsModel.find().lean()
-    res.json(carts)
-};
+  async getProductsByCartId(req, res) {
+    try {
+      const {
+        params: { id },
+      } = req;
+      const cart = await CartService.getCartById(id);
+      if (!cart) {
+        res.status(404);
+        logger.error(`${req.method} ${req.originalUrl} ${res.statusCode}`);
+        res.render("./pages/error.ejs", {
+          code: 404,
+          message: "Cart Not Found",
+        });
+      }
+      res.status(200);
+      logger.http(`${req.method} ${req.originalUrl} ${res.statusCode}`);
+      res.render("./pages/cart.ejs", {
+        products: cart.products,
+        cartId: req.cookies.cartIdCookie,
+        cartTotal: cart.total,
+        categories: req.cookies.categoriesCookie,
+        userId: req.cookies.userIdCookie,
+      });
+    } catch (err) {
+      res.status(500);
+      logger.warn(`${req.method} ${req.originalUrl} ${res.statusCode}`);
+      res.render("./pages/error.ejs", {
+        code: 500,
+        message: "Internal Server Error",
+      });
+    }
+  }
 
-export const addCart = async (req, res) => {
-    const { id, products } = req.body
-    const newCart = new cartsModel({
-       id,
-       products,
-    })
+  async createCart(req, res) {
+    const { body } = req;
+    if (Object.entries(body).length == 0 || Object.entries(body).length < 1) {
+      res.status(422);
+      logger.error(`${req.method} ${req.originalUrl} ${res.statusCode}`);
+      res.render("./pages/error.ejs", {
+        code: 422,
+        message: "No se pudo obtener los atributos del carrito correctamente",
+      });
+    } else {
+      try {
+        const newCart = await CartService.createCart(body);
+        res.status(201);
+        logger.http(`${req.method} ${req.originalUrl} ${res.statusCode}`);
+        res.json({ newCartId: newCart._id });
+      } catch (err) {
+        res.status(500);
+        logger.warn(`${req.method} ${req.originalUrl} ${res.statusCode}`);
+        res.render("./pages/error.ejs", {
+          code: 500,
+          message: "Internal Server Error",
+        });
+      }
+    }
+  }
 
-    const savedCart = await newCart.save()
-   res.json(savedCart);
-};
+  async createProductOfACart(req, res) {
+    try {
+      const {
+        params: { id, id_prod },
+      } = req;
+      const product = await ProductService.getProductById(id_prod);
+      const cart = await CartService.getCartById(id);
+      if (!product) {
+        res.status(404);
+        logger.error(`${req.method} ${req.originalUrl} ${res.statusCode}`);
+        res.render("./pages/error.ejs", {
+          code: 404,
+          message: "Product Not Found",
+        });
+        if (!cart) {
+          res.status(404);
+          logger.error(`${req.method} ${req.originalUrl} ${res.statusCode}`);
+          res.render("./pages/error.ejs", {
+            code: 404,
+            message: "Cart Not Found",
+          });
+        }
+      }
+      await CartService.createProductOfACart(id, product);
+      res.status(302);
+      logger.http(`${req.method} ${req.originalUrl} ${res.statusCode}`);
+      res.redirect(`/api/cart/${id}/products`);
+    } catch (err) {
+      res.status(500);
+      logger.warn(`${req.method} ${req.originalUrl} ${res.statusCode}`);
+      res.render("./pages/error.ejs", {
+        code: 500,
+        message: "Internal Server Error",
+      });
+    }
+  }
 
-export const getCartById = async (req, res) => {
-    const cart = await cartsModel.findById(req.params.id)
-    if (!cart) return res.status(404).json({ message: 'Producto no encontrado'})
-    res.json(cart)
-};
+  async deleteCartById(req, res) {
+    try {
+      const {
+        params: { id },
+      } = req;
+      const cart = await CartService.getCartById(id);
+      if (!cart) {
+        res.status(404);
+        logger.error(`${req.method} ${req.originalUrl} ${res.statusCode}`);
+        res.render("./pages/error.ejs", {
+          code: 404,
+          message: "Cart Not Found",
+        });
+      }
+      await CartService.deleteCartById(id);
+      res.status(200);
+      logger.http(`${req.method} ${req.originalUrl} ${res.statusCode}`);
+      res.redirect(`/api/cart/${id}/products`);
+    } catch (err) {
+      res.status(500);
+      logger.warn(`${req.method} ${req.originalUrl} ${res.statusCode}`);
+      res.render("./pages/error.ejs", {
+        code: 500,
+        message: "Internal Server Error",
+      });
+    }
+  }
 
-export const deleteCart = async (req, res) => {
-    const cart = await cartsModel.findByIdAndDelete(req.params.id)
-    if (!cart) return res.status(404).json({ message: 'Producto no encontrado'})
-    res.json(cart)
-};
+  async deleteProductById(req, res) {
+    try {
+      const {
+        params: { id, id_prod },
+      } = req;
+      const product = await ProductService.getProductById(id_prod);
+      const cart = await CartService.getCartById(id);
+      if (!product) {
+        res.status(404);
+        logger.error(`${req.method} ${req.originalUrl} ${res.statusCode}`);
+        res.render("./pages/error.ejs", {
+          code: 404,
+          message: "Product Not Found",
+        });
+        if (!cart) {
+          res.status(404);
+          logger.error(`${req.method} ${req.originalUrl} ${res.statusCode}`);
+          res.render("./pages/error.ejs", {
+            code: 404,
+            message: "Cart Not Found",
+          });
+        }
+      }
+      await CartService.deleteProductByCartId(id, id_prod);
+      res.status(302);
+      logger.http(`${req.method} ${req.originalUrl} ${res.statusCode}`);
+      res.redirect(`/api/cart/${id}/products`);
+    } catch (err) {
+      res.status(500);
+      logger.warn(`${req.method} ${req.originalUrl} ${res.statusCode}`);
+      res.render("./pages/error.ejs", {
+        code: 500,
+        message: err?.message,
+      });
+    }
+  }
+}
 
-export const updateCart = async (req, res) => {
-    const cart = await cartsModel.findByIdAndUpdate(req.params.id, req.body)
-    if (!cart) res.status(404).json({ message: 'Producto no encontrado'})
-    res.json(cart)
-};
-
-export const addProductToCart = async (req, res) => {
-    
-};
+export default new CartController();
