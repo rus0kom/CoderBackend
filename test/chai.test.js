@@ -63,3 +63,4 @@ describe("testing productDao en chai", () => {
         expect(productCreate).to.have.property("title" || "owener")
     })
 })
+

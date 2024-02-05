@@ -33,3 +33,4 @@ spec:
             - name: MONGO_URL
               value: mongodb+srv://coder:coder@backend39755.3tezvvo.mongodb.net/?retryWrites=true&w=majority
           imagePullPolicy: Always
+          

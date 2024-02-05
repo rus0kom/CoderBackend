@@ -50,3 +50,6 @@ describe("testing productDao", () => {
         assert.strictEqual(typeof result, "object")
     })
 })
+
+
+
