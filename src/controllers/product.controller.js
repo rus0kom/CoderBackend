@@ -53,13 +53,6 @@ export const deleteProduct = async (req, res) => {
     }
 };
 
-// export const updateProduct = async (req, res) => {
-//     const { title, description, price, thumbnail, code, stock } = req.body;
-//     await Products.findByIdAndUpdate(req.params.id, { title, description, price, thumbnail, code, stock });
-//     req.flash('success_msg', 'Product Updated Successfully');
-//     res.redirect('/products')
-// };
-
 export const updateProduct = async (req, res) => {
     try {
         const product = await Products.findByIdAndUpdate(req.params.id, req.body, {

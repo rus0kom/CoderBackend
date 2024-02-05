@@ -1,8 +1,6 @@
 import cartsModel from "../models/carts.model.js";
 import Products from "../models/products.model.js";
 
-// RELACIONAR CARRITO CON LOS PRODUCTOS
-
 export const getProductsInCart = async (req, res) => {
     const products = await Products.find({
        user: req.user.id
@@ -13,7 +11,7 @@ export const getProductsInCart = async (req, res) => {
 
 export const getCarts = async (req, res) => {
     const carts = await cartsModel.find().lean()
-    res.render('carts', {carts})
+    res.json(carts)
 };
 
 export const addCart = async (req, res) => {
@@ -45,3 +43,6 @@ export const updateCart = async (req, res) => {
     res.json(cart)
 };
 
+export const addProductToCart = async (req, res) => {
+    
+};
