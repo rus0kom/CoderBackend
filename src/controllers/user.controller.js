@@ -70,7 +70,7 @@ class UserController {
     try {
       const { body } = req;
       
-      const { user, createdUser } = await UserService.createUser(body, file);
+      const { user, createdUser } = await UserService.createUser(body);
 
       if (user) {
         res.status(409);

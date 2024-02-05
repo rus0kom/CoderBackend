@@ -18,6 +18,6 @@ authRouter.get("/logout", UserController.logout);
 authRouter.get("/register", UserController.renderRegisterView);
 
 // [POST] 🌐/auht/register
-authRouter.post("/register", upload.single("image"), UserController.createUser);
+authRouter.post("/register", UserController.createUser);
 
 export default authRouter;

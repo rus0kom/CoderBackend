@@ -62,7 +62,6 @@ class UserService {
           email,
           age,
           address,
-          image: file.filename,
           phone,
           password: hashedPassword,
           cart_id: userCart._id,

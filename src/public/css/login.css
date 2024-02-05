@@ -1,0 +1,35 @@
+* {
+    font-family: 'Barlow Condensed', sans-serif;
+}
+
+.backgroundLogin {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.233)),
+    url("https://wallpaperaccess.com/full/1098137.jpg");
+    background-size: cover;
+    width: 100%;
+    height: 40.5em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.login {
+    background-color: whitesmoke;
+    width: 60%;
+    height: 70%;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    box-shadow: 0 20px 30px -14px rgba(0, 0, 0, 0.486);
+}
+
+#formLogin {
+    width: 80%;
+    height: 80%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
