@@ -1,5 +1,0 @@
-### acceder a mi perfil
-GET http://localhost:8080/myProfile
-
-### acceder a mi perfil
-GET http://localhost:8080/myProfile/myCart
