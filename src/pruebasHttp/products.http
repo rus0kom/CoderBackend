@@ -1,0 +1,100 @@
+### Trae todos los productos en la base de datos
+GET http://localhost:8080/api/products
+# Content-Type: application/json
+# authorization: Bearer 
+
+### busca producto por id
+GET http://localhost:8080/api/products/649e1b939320ec15b2b39aee
+
+### busca producto por id
+GET http://localhost:8080/api/products/7
+
+### agrega un producto 
+POST http://localhost:8080/api/products
+Content-Type: application/json
+
+{
+    "title": "Chevrolet Onix",
+    "description": "modelo : 2020",
+    "price": "14.555",
+    "thumbnails": "https://th.bing.com/th/id/OIP.vovV_en_B1bDmX4V044EswHaE7?pid=ImgDet&rs=1",
+    "code": "Ax435Ty",
+    "stock": "5"
+}
+
+### agrega un producto 
+POST http://localhost:8080/api/products
+Content-Type: application/json
+
+{
+    "title": "Ford Focus v.2",
+    "description": "Modelo: 2019",
+    "price": "20.699",
+    "thumbnails": "https://th.bing.com/th/id/R.3208a81b857b301d2b70e48b50bde628?rik=BiLu3sD3Zqx2jQ&pid=ImgRaw&r=0",
+    "code": "AR34bD",
+    "stock": "12"
+}
+
+### agrega un producto 
+POST http://localhost:8080/api/products
+Content-Type: application/json
+
+{
+    "title": "Ford Mustang Shelby",
+    "description": "modelo: 2020",
+    "price": "87.633",
+    "thumbnails": "https://www.automobilemag.com/uploads/sites/11/2019/10/2020-Ford-Mustang-Shelby-GT350R-20.jpg",
+    "code": "Sh354by",
+    "stock": "8"
+}
+
+### agrega un producto 
+POST http://localhost:8080/api/products
+Content-Type: application/json
+
+{
+    "title": "prod Prueba",
+    "description": "modelo: 2020",
+    "price": "7.633",
+    "thumbnails": "Producto",
+    "stock": "50"
+}
+
+### actualiza un producto existente
+PUT http://localhost:8080/api/products/64c3060a2fd5c54432ab63f3
+Content-Type: application/json
+
+{
+    "description": "Modelo: 2022",
+    "price": "15.999",
+    "stock": "40"
+}
+
+### actualiza un producto existente
+PUT http://localhost:8080/api/products/64c306b42fd5c54432ab63f9
+Content-Type: application/json
+
+{
+    "description": "Modelo: 2023",
+    "price": "16.999",
+    "stock": "25"
+}
+
+### actualiza un producto
+PUT http://localhost:8080/api/products/1
+Content-Type: application/json
+
+{
+    "description": "Modelo: 2020",
+    "price": 36.999,
+    "stock": 15
+}
+
+### elimina un producto
+DELETE http://localhost:8080/api/products/64c1c60d44135f78e5e72024
+
+### elimina un producto
+DELETE http://localhost:8080/api/products/64c30358abaf3f4455bfc4a8
+
+### elimina un producto
+DELETE http://localhost:8080/api/products/13
