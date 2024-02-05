@@ -69,16 +69,7 @@ class UserController {
   async createUser(req, res) {
     try {
       const { body } = req;
-      const { file } = req;
-
-      if (!file) {
-        res.status(400);
-        logger.error(`${req.method} ${req.originalUrl} ${res.statusCode}`);
-        res.render("./pages/error.ejs", {
-          code: 400,
-          message: "Please upload a file",
-        });
-      }
+      
       const { user, createdUser } = await UserService.createUser(body, file);
 
       if (user) {

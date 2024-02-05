@@ -43,7 +43,7 @@ class UserService {
 
   async createUser(body, file) {
     try {
-      const { username, email, age, address, phone, password } = body;
+      const { username, email, age, phone, password } = body;
       const user = await this.getUserByUsername(username);
 
       if (user) {
