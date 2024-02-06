@@ -101,7 +101,7 @@ components:
       example:
         _id: ObjectId('36436jc565745w9020t')
         firtsName: Andres
-        lastName: Lopez
+        lastName: SoyYo
         email: andy@gmail.com
         userName: andykiller
         password: baires123
