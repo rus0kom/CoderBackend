@@ -8,7 +8,7 @@ dotenv.config({ path: mode === 'development' ? './.env.development' : './.env.pr
 console.log(process.env.PERSISTENCE);
 module.exports = {
     persistence: process.env.PERSISTENCE,
-    port: process.env.PORT,
+    port: process.env.PORT||8080,
     JwtKeySecret: process.env.JWT_KEY_SECRET,
     gmailUser: process.env.GMAIL_USER_APP,
     gmailPassword: process.env.GMAIL_PASSWORD_APP,
